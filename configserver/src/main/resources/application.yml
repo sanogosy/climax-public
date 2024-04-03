@@ -20,7 +20,7 @@ spring:
     config:
       server:
         git:
-          username: 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
+          username: 
           password:
           ignore-local-ssh-settings: true
           uri: https://github.com/sanogosy/climax-config.git
