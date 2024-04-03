@@ -14,3 +14,5 @@ docker run -p 3306:3306 --name climaxdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DAT
 
 Generate a new docker image from a microservice
 mvn compile jib:dockerBuild
+
+Un fichier CSV pour tester est dans le front-end
