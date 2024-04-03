@@ -1,11 +1,19 @@
 Assurez vous que le port 3306 est ouvert et libre puis executer la commande suivante pour creer une image de mysql qui se nomme mysql, le nom de la base de donnees sera climaxdb
 
-Il est constitue de 5 microservices
+Il est constitué de 5 microservices
 - Configserver sur le port 8071
 - Eurekaserver sur le port 8070
 - Configserver sur le port 8072
 - Clientserver sur le port 8069
 - Fileprocessserver sur le port 8068
+
+Le Back-End doit etre demarré comme suit:
+- Configserver sur le port 8071
+- Eurekaserver sur le port 8070
+- Configserver sur le port 8072
+- Clientserver sur le port 8069
+- Fileprocessserver sur le port 8068
+Tous les microservices dependent de la Configserver qui demarre en premier, puis Eurekaserver, ensuite la Configserver et le reste.
 
 MySql marche sur le port 3306
 Creer l'image de Mysql avec la commande suivante:
