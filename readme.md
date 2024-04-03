@@ -8,14 +8,14 @@ docker run -p 3306:3306 --name climaxdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DAT
 Il est constitué de 5 microservices
 - Configserver sur le port 8071
 - Eurekaserver sur le port 8070
-- Configserver sur le port 8072
+- Gatewayserver sur le port 8072
 - Clientserver sur le port 8069
 - Fileprocessserver sur le port 8068
 
 Le Back-End doit etre demarré comme suit:
 - Configserver sur le port 8071
 - Eurekaserver sur le port 8070
-- Configserver sur le port 8072
+- Gatewayserver sur le port 8072
 - Clientserver sur le port 8069
 - Fileprocessserver sur le port 8068
 Tous les microservices dependent de la Configserver qui demarre en premier, puis Eurekaserver, ensuite la Configserver et le reste.
