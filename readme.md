@@ -24,3 +24,7 @@ Generate a new docker image from a microservice
 mvn compile jib:dockerBuild
 
 Un fichier CSV pour tester est dans le front-end
+
+NB: Le back-end utilise JAVA 17 minimum
+Le fichier CSV doit avoir l'entete formée ainsi: 
+CSVFormat.EXCEL.withDelimiter(';').withHeader("nom", "prenom", "identifiant", "profession", "revenu")
