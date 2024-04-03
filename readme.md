@@ -1,9 +1,12 @@
 Assurez vous que le port 3306 est ouvert et libre puis executer la commande suivante pour creer une image de mysql qui se nomme mysql, le nom de la base de donnees sera climaxdb
 
 MySql marche sur le port 3306
-Creer l'image de Mysql avec la commande suivante:
+
+Vous pouvez Créer l'image de Mysql avec la commande suivante:
 
 docker run -p 3306:3306 --name climaxdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=climaxdb -d mysql
+
+NB: Si vous utilisez une image donc docker pour la base de donnees MySql, vous pouvez installer SqlEctron pour vous connecter à cette base de donnees
 
 Il est constitué de 5 microservices
 - Configserver sur le port 8071
