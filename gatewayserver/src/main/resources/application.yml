@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+  main:
+      web-application-type=reactive:
+#  main:
+#    web-application-type: reactive
+
+## Configuring info endpoint
+info:
+  app:
+    name: "gatewayserver"
+    description: Climax Gateway Server Application
+    version: 1.0.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true

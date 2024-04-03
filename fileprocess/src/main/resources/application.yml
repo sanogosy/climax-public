@@ -1,0 +1,60 @@
+server:
+  port: 8068
+
+spring:
+    application:
+      name: "fileprocess"
+    datasource:
+      url: jdbc:mysql://localhost:3306/climaxdb
+      username: root
+      password: root
+    #spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+    #spring.h2.console.enabled=true
+    #spring.jpa.hibernate.ddl-auto=update
+    jpa:
+      show-sql: true
+    sql:
+      init:
+        mode: always
+  #spring.datasource.data = file:data.sql
+    #Specified to client microservice where to look for
+    #configuration or properties in configserver microservice
+
+    #Property application.name value must much to one of file like client-dev.properties or client-prod.properties
+    profiles:
+      active: prod
+    config:
+      import: "optional:configserver:http://localhost:8071/"
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+  endpoint:
+      shutdown:
+          enabled: true
+    
+    #eureka.client.enabled=true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://localhost:8070/eureka/"
+    
+## Configuring info endpoint
+info:
+  app:
+    name: "fileprocess"
+    description: "Climax fileprocess Application"
+    version: 1.0.0
+    
+endpoints:
+  shutdown:
+    enabled: true

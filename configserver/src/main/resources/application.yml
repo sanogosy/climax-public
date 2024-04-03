@@ -1,0 +1,48 @@
+server:
+  port: 8071
+  #******************GIT-Credentials***************************
+  #******************When use GIT, we have just to generate a token from Github and pass to username and keep empty password like below****
+spring:
+  application:
+    name: "configserver"
+  #****************For reading in local project file*****************
+  #spring.profiles.active=native
+  #spring.cloud.config.server.native.search-locations=classpath:/config
+
+  #****************For reading in file system file*****************
+  #spring.profiles.active=native
+  #spring.cloud.config.server.native.search-locations=file:///C://config
+
+  #****************For reading in from GIT*****************
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          username: 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
+          password:
+          ignore-local-ssh-settings: true
+          uri: https://github.com/sanogosy/climax-config.git
+  #******************For clone repo on Git***********************************************
+          clone-on-start: true
+  #*******************Specified the branche on Git if it was master, give master to label********
+          default-label: main
+
+#encrypt:
+#  key: climax
+  #By default spring send ten percent of log to Zipkin. Here we set to one hundred
+#spring.sleuth.sampler.percentage=1
+#spring.zipkin.baseUrl=http://localhost:9411/
+
+  #Send logs to rabbit/default is Web
+#spring.zipkin.sender.type=rabbit
+  #The queue name
+#spring.zipkin.rabbitmq.queue=zipkin
+#spring.rabbitmq.host=localhost
+  #Rabbitmq port
+#spring.rabbitmq.port=5672
+  #Rabbitmq username
+#spring.rabbitmq.username=guest
+  #Rabbitmq password
+#spring.rabbitmq.password=guest

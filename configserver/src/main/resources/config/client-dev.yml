@@ -1,0 +1,9 @@
+client:
+  msg: "Welcome to the climax Dev application"
+  build-version: 2
+
+  mailDetails:
+    hostName: dev-client@climax.com
+    port: 9020
+    from: dev-client@climax.com
+    subject: "Your clent from climax Dev Environment"

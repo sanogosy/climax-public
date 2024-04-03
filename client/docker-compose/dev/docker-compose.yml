@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+    climaxdb:
+      image: mysql
+      container_name: climaxdb
+      ports:
+        - 3306:3306
+      healthcheck:
+        test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+        timeout: 10s
+        retries: 10
+        interval: 10s
+        start_period: 10s
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: climaxdb
+      networks:
+        - climax
+
+    configserver:
+      image: climax/configserver:latest
+      mem_limit: 700m
+      ports:
+        - "8072:8072"
+      networks:
+        - climax
+        
+    eurekaserver:
+     image: climax/eurekaserver:latest
+     mem_limit: 700m
+     mem_reservation: 128M
+     ports:
+       - "8761:8761"
+     networks:
+       - climax
+     depends_on:
+        - configserver
+     deploy:
+        restart_policy:
+          condition: on-failure
+          delay: 5s
+          max_attempts: 3
+          window: 120s
+     environment:
+          SPRING_PROFILES_ACTIVE: dev
+          SPRING_APPLICATION_NAME: eurekaserver
+          SPRING_CONFIG_IMPORT: configserver:http://configserver:8072/
+
+    client:
+        image: climax/client:latest
+        mem_limit: 700m
+        ports:
+          - "8071:8071"
+        networks:
+          - climax
+        depends_on:
+          climaxdb:
+            condition: service_healthy
+        deploy:
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 3
+                window: 120s
+        environment:
+            SPRING_PROFILES_ACTIVE: dev
+            SPRING_CONFIG_IMPORT: configserver:http://configserver:8072/
+            SPRING_APPLICATION_NAME: client
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8761/eureka/
+            SPRING_DATASOURCE_URL: "jdbc:mysql://climaxdb:3306/climaxdb"
+            SPRING_DATASOURCE_USERNAME: root
+            SPRING_DATASOURCE_PASSWORD: root
+        
+networks:
+    climax:
