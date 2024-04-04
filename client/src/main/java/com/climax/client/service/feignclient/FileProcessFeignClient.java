@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @FeignClient("fileprocess")
-//@FeignClient (
-//        configuration = FeignSimpleEncoderConfig.class
-//)
-public interface FileProcessFeignClient {
 
-//    @PostMapping("/file-name")
+public interface FileProcessFeignClient {
     @RequestMapping(method = RequestMethod.POST, value = "file-name", consumes = "application/json")
     List<ClientDTO> processFile(@RequestBody FichierDTO fichierDTO);
 

@@ -9,7 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-//    @PersistenceContext
-//    EntityManager entityManager = null;
-
 }

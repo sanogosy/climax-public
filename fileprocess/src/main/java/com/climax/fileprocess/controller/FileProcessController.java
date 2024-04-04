@@ -5,18 +5,18 @@ import com.climax.fileprocess.domain.dto.ClientDTO;
 import com.climax.fileprocess.domain.dto.FichierDTO;
 import com.climax.fileprocess.repository.FileProcessRepository;
 import com.climax.fileprocess.service.FileProcessService;
+import com.climax.fileprocess.service.IClientService;
 import com.climax.fileprocess.utils.CsvFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.climax.fileprocess.utils.CsvFormat.getExtensionByApacheCommonLib;
+import static com.climax.fileprocess.utils.JsonFileFormat.uploadJsonFileFromResource;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -25,6 +25,9 @@ public class FileProcessController {
 
     @Autowired
     private FileProcessService fileProcessService;
+
+    @Autowired
+    private IClientService iClientService;
 
     @Autowired
     private FileProcessRepository fileProcessRepository;
@@ -47,22 +50,21 @@ public class FileProcessController {
 
     @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.POST})
     @PostMapping(value = "/process")
-//    public List<ClientDTO> processFile(@RequestBody FichierDTO fichierDTO) {
-    public List<ClientDTO> processFile(@RequestParam("fileName") String fileName) {
+    public List<ClientDTO> processFile(@RequestParam("fileName") String fileName) throws IOException {
         List<ClientDTO> clientDTOList = new ArrayList<>();
-//        fichierDTO.setTitre("client.csv");
-//        fichierDTO.setUrl("..\\climax\\client.csv");
         if(CsvFormat.uploadCsvFileFromResource(fileName) != null) {
             clientDTOList = fileProcessService.readFileAndSaveClient(
                     CsvFormat.uploadCsvFileFromResource(fileName)
             );
         }
+        else if(uploadJsonFileFromResource(fileName) != null){
+            clientDTOList = iClientService.saveAllClient(fileName);
+        }
         else if(getExtensionByApacheCommonLib(fileName).equals("txt")){
-            clientDTOList = fileProcessService.readFileAndSaveClient(
-                    CsvFormat.uploadCsvFileFromResource(fileName)
+            clientDTOList = fileProcessService.readTxtFileAndProcess(
+                    CsvFormat.uploadTxtFileFromResource(fileName)
             );
         }
-//        return ResponseEntity.ok().body(clientDTOList);
         return clientDTOList;
     }
 

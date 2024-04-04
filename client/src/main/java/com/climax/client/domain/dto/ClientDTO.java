@@ -25,6 +25,4 @@ public class ClientDTO {
 
     private Date create_dt;
 
-//    private boolean deleted;
-
 }

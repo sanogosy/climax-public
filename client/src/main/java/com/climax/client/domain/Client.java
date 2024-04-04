@@ -36,7 +36,4 @@ public class Client {
     @Column(name="create_dt")
     private Date create_dt;
 
-//    @Column(name = "deleted", columnDefinition = "boolean default false")
-//    private boolean deleted;
-
 }

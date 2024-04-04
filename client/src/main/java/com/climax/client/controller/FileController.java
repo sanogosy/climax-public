@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping(value = "/api")
 public class FileController {
 
-//    private final FileServiceImpl fileService;
     @Autowired
     private FileService fileService;
 
@@ -34,9 +33,6 @@ public class FileController {
     @Autowired
     ClientRepository clientRepository;
 
-//    public FileController(FileServiceImpl fileService) {
-//        this.fileService = fileService;
-//    }
     public FileController() {
     }
 
@@ -49,6 +45,7 @@ public class FileController {
             clientDto.setId(client.getId());
             clientDto.setNom_client(client.getNom_client());
             clientDto.setPrenom_client(client.getPrenom_client());
+            clientDto.setProfession_client(client.getProfession_client());
             clientDto.setClient_revenu(client.getClient_revenu());
             clientDto.setIdentifiant(client.getIdentifiant());
 
@@ -66,7 +63,6 @@ public class FileController {
         String fileUrl = "";
 
         if(file != null) {
-//            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
             if(fileService.findByTitre(fileName).getTitre() == null) {
                 fileUrl = fileService.upload(file);
                 System.out.println(">>>>>>>>>>>>>>>>>>>>Not Exists");

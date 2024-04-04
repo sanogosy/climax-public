@@ -11,10 +11,6 @@ spring:
           lowerCaseServiceId: true
   main:
       web-application-type=reactive:
-#  main:
-#    web-application-type: reactive
-
-## Configuring info endpoint
 info:
   app:
     name: "gatewayserver"
