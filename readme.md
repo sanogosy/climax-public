@@ -5,7 +5,7 @@ docker run -p 3306:3306 --name climaxdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DAT
 Il est constitue de 5 microservices
 - Configserver sur le port 8071
 - Eurekaserver sur le port 8070
-- Configserver sur le port 8072
+- Gatewayserver sur le port 8072
 - Clientserver sur le port 8069
 - Fileprocessserver sur le port 8068
 
@@ -18,3 +18,7 @@ mvn compile jib:dockerBuild
 Un fichier CSV pour tester est dans le front-end
 Un fichier txt pour tester est dans le front-end
 Un fichier json pour tester est dans le front-end
+
+NB: Le back-end utilise JAVA 17 minimum
+Le fichier CSV doit avoir l'entete formée ainsi: 
+CSVFormat.EXCEL.withDelimiter(';').withHeader("nom", "prenom", "identifiant", "profession", "revenu")
